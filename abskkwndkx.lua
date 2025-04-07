@@ -209,7 +209,12 @@ WBH = function()
             },
             {
               "name": "**<:ArRoz:1358269158692749372> Consumable:**",
-              "value": "*Consumable Counts: ]] ..ConsTot.. [[\nArroz Count: ]] ..CI(4604)..[[\nClover Count:  ]] ..CI(524).. [[\nSongPyeon: ]] ..CI(1056).. [[\nEggs Benedict: ]] ..CI(1474).. [[*",
+              "value": "*Consumable Counts: ]] ..ConsTot.. [[*",
+              "inline": true
+            },
+            {
+              "name": "**<a:emoji_40:1315182746498236456> Total Consumable In Inventory:**",
+              "value": "*Arroz: ]] ..CI(4604).. [[\nClover: ]] ..CI(524).. [[\nSongpyeon: ]] ..CI(1056).. [[\nEgg Benedict: ]] ..CI(1474).. [[*",
               "inline": true
             },
             {
