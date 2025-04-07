@@ -179,52 +179,52 @@ WBH = function()
       "content": "",
       "embeds": [
         {
-          "title": "PNB Status Update",
+          "title": "PNB V3 Status Update",
           "color": 65535,
           "fields": [
             {
-              "name": "**<a:Crown:1358265366576496793> Username:**",
-              "value": "]] ..playerName.. [[",
+              "name": "# **<a:Crown:1358265366576496793> Username:**",
+              "value": "**]] ..playerName.. [[**",
               "inline": true
             },
             {
-              "name": "**<:Char:1358261991508283553> Break Position:**",
-              "value": "Locked Break Position: ]] ..PosiBre.. [[",
+              "name": "# **<:Char:1358261991508283553> Break Position:**",
+              "value": "**Locked Break Position: ]] ..PosiBre.. [[**",
               "inline": true
             },
             {
-              "name": "**<a:emoji_40:1315182746498236456> Telephone Position:**",
-              "value": "Telephone Position Set: ]] ..TelePost.. [[",
+              "name": "# **<:telep:1358652528413249597> Telephone Position:**",
+              "value": "**Telephone Position Set: ]] ..TelePost.. [[**",
               "inline": true
             },
             {
-              "name": "**<:MagPlants:1358262215135854672> Magplant Count:**",
-              "value": "Total Magplant: ]] ..TotMag.. [[",
+              "name": "# **<:MagPlants:1358262215135854672> Magplant Count:**",
+              "value": "**Total Magplant: ]] ..TotMag.. [[**",
               "inline": true
             },
             {
-              "name": "**<a:emoji_40:1315182746498236456> Current Remote:**",
-              "value": "Taking Remote #]] ..RemT.. [[",
+              "name": "# **<:MPRemote:1358658580135546947> Current Remote:**",
+              "value": "**Taking Remote #]] ..RemT.. [[**",
               "inline": true
             },
             {
               "name": "**<:ArRoz:1358269158692749372> Consumable:**",
-              "value": "Consumable Counts: ]] ..ConsTot.. [[\nArroz Count: ]] ..CI(4604)..[[\nClover Count:  ]] ..CI(524).. [[\nSongPyeon: ]] ..CI(1056).. [[\nEggs Benedict: ]] ..CI(1474).. [[",
+              "value": "**Consumable Counts: ]] ..ConsTot.. [[\nArroz Count: ]] ..CI(4604)..[[\nClover Count:  ]] ..CI(524).. [[\nSongPyeon: ]] ..CI(1056).. [[\nEggs Benedict: ]] ..CI(1474).. [[**",
               "inline": true
             },
             {
               "name": "**<:Globes:1358263944938000526> World:**",
-              "value": "Locked World: ]] ..CurrentWorld.. [[",
+              "value": "**Locked World: ]] ..CurrentWorld.. [[**",
               "inline": true
             },
             {
               "name": "**<:bijiel:1250517175421370459> Current Lock:**",
-              "value": "Diamond Lock: ]] ..CI(1796).. [[ <:DL:1358262393192579234>\nBlue Gem Lock: ]] ..CI(7188).. [[ <:bijiel:1250517175421370459>",
+              "value": "**Diamond Lock: ]] ..CI(1796).. [[ <:DL:1358262393192579234>\nBlue Gem Lock: ]] ..CI(7188).. [[ <:bijiel:1250517175421370459>**",
               "inline": true
             },
             {
-              "name": "**<a:EPTime:1243341200195321916> RunTime:**",
-              "value": "Time: ]] ..FTime(os.time() - StartTime)..[[",
+              "name": "# **<a:EPTime:1243341200195321916> RunTime:**",
+              "value": "**Time: ]] ..FTime(os.time() - StartTime)..[[**",
               "inline": true
             }
           ]
