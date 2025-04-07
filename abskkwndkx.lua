@@ -1,4 +1,4 @@
----[[Sensitive Part]]--
+--[[Sensitive Part]]--
 local PaX,PaY = math.floor(GetLocal().pos.x / 32), math.floor(GetLocal().pos.y / 32)
 local facing = Configuration.Player.Facing:lower() == "left" and 48 or 32
 local isIsland = GetTile(199, 199)
@@ -213,7 +213,7 @@ WBH = function()
               "inline": true
             },
             {
-              "name": "**<a:emoji_40:1315182746498236456> Total Consumable In Inventory:**",
+              "name": "**<a:emoji_40:1315182746498236456> Consumable Amount:**",
               "value": "*Arroz: ]] ..CI(4604).. [[\nClover: ]] ..CI(524).. [[\nSongpyeon: ]] ..CI(1056).. [[\nEgg Benedict: ]] ..CI(1474).. [[*",
               "inline": true
             },
