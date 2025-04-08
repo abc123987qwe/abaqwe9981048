@@ -292,6 +292,7 @@ RN = function()
         CS(facing, PaX, PaY)
         Slp(300)
         CH(1)
+        WebHook()
       else
         CS(facing, PaX, PaY)
         local tl = GetTile(PaX + (facing == 48 and -1 or 1), PaY)
@@ -327,7 +328,6 @@ RN = function()
         Slp(500)
       end
       EC()
-      Webhook()
     end
   end
 end
