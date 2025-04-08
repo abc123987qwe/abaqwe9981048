@@ -187,14 +187,11 @@ end
 
 function Webhook()
     local playerName = GetLocal().name:match("[^`,%d]+")
-    local initGemz = GetPlayerItems().gems
     local DiX = math.floor(PaX) + 1
     local DiY = math.floor(PaY) + 1
     local PosiBre = "X: " .. DiX.. " Y: " .. DiY
     local TelePost = "X: " .. Configuration.Misc.TelephonePos.x .. " Y: " ..Configuration.Misc.TelephonePos.y
     local TotMag = #FM()
-    local currentGemz = GetPlayerItems().gems
-    local getGemz = currentGemz - initGemz
     local RemT = current
     local ConsTot = #Configuration.Misc.ConsumableID
     local Link = WLink()
@@ -244,11 +241,6 @@ function Webhook()
             {
               "name": "**<:Globes:1358263944938000526> World:**",
               "value": "**Locked World: ]] ..CurrentWorld.. [[**",
-              "inline": true
-            },
-            {
-              "name": "**Gems:**",
-              "value": "**Current Gems: ]] .. currentGemz ..[[\nEarned Gems: ]] .. getGemz .. [[**",
               "inline": true
             },
             {
