@@ -301,7 +301,6 @@ RN = function()
         Slp(300)
         CH(1)
       else
-        Webhook()
         CS(facing, PaX, PaY)
         local tl = GetTile(PaX + (facing == 48 and -1 or 1), PaY)
         local tb = type(tl) == "table" and tl.fg or Configuration.Magplants.BlockID
@@ -336,6 +335,7 @@ RN = function()
         Slp(500)
       end
       EC()
+      Webhook()
     end
   end
 end
