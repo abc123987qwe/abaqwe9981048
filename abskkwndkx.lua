@@ -217,7 +217,7 @@ WBH = function()
             },
             {
               "name": "**<:ArRoz:1358269158692749372> Consumable:**",
-              "value": "*Using ]] ..ConsTot.. [[Consumable\nArroz: ]] .. CI(4604) .. [[ Used: ]] .. (consumeCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consumeCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consumeCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consumeCount[1474] or 0) .. [[*",
+              "value": "*Using ]] ..ConsTot.. [[Consumable\nArroz: ]] .. CI(4604) .. [[ Used: ]] .. (consCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consCount[1474] or 0) .. [[*",
               "inline": true
             },
             {
