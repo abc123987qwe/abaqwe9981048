@@ -96,6 +96,8 @@ CI = function(num)
   return 0
 end
 
+consCount = {}
+
 EC = function()
   if not Configuration.Misc.AutoConsume then
     return end
@@ -104,10 +106,16 @@ EC = function()
     ConsumeTime = cT
     ER("`9Consume Time")
     for _, Eat in pairs(Configuration.Misc.ConsumableID) do
-      if CI(Eat) > 0 then
+      local consAmount = CI(Eat)
+      if consAmount > 0 then
         for i = 1, Configuration.Misc.Attempt do
         PN(PaX, PaY, Eat)
         Slp(2000)
+        if not consCount[Eat] then
+           consCount[Eat] = 1
+          else
+            consCount[Eat] = consCount[Eat] + 1
+          end
         end
       end
     end
@@ -209,12 +217,7 @@ WBH = function()
             },
             {
               "name": "**<:ArRoz:1358269158692749372> Consumable:**",
-              "value": "*Consumable Counts: ]] ..ConsTot.. [[*",
-              "inline": true
-            },
-            {
-              "name": "**<a:emoji_40:1315182746498236456> Consumable Amount:**",
-              "value": "*Arroz: ]] ..CI(4604).. [[\nClover: ]] ..CI(524).. [[\nSongpyeon: ]] ..CI(1056).. [[\nEgg Benedict: ]] ..CI(1474).. [[*",
+              "value": "*Using ]] ..ConsTot.. [[Consumable\nArroz: ]] .. CI(4604) .. [[ Used: ]] .. (consumeCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consumeCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consumeCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consumeCount[1474] or 0) .. [[*",
               "inline": true
             },
             {
