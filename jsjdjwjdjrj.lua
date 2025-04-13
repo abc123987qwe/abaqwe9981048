@@ -266,23 +266,23 @@ function Webhook()
                   "inline": true
                 },
                 {
-                  "name": "**Gems:**",
+                  "name": "**<:gemz:1360301779144675438> Gems:**",
                   "value": "**Start Gems: ]] .. initGemz ..[[\nEarned Gems: ]] .. getGemz .. [[\nConverted Gems: ]] .. usedGems ..[[**",
                   "inline": true
                 },
                 {
                   "name": "**<:DL:1358262393192579234> Total Lock:**",
-                  "value": "**Current Diamond Lock: ]] .. CI(1796) .. [[ <:DL:1358262393192579234>\nCurrent Blue Gem Lock: ]] .. CI(7188) .. [[ <:bijiel:1250517175421370459>**",
+                  "value": "**Current Diamond Lock: ]] .. CI(1796) .. [[ <:DL:1358262393192579234>\nCurrent Blue Gem Lock: ]] .. CI(7188) .. [[ <a:shiny_bgl:1241799042174947370>**",
                   "inline": true
                 },
                 {
                 "name": "**<:DL:1358262393192579234> Earned Locks:**",
-                "value": "**Earn DL: ]] .. getDL .. [[ <:DL:1358262393192579234>\nEarn BGL: ]] .. getBGL .. [[ <:bijiel:1250517175421370459>**",
+                "value": "**Earn DL: ]] .. getDL .. [[ <:DL:1358262393192579234>\nEarn BGL: ]] .. getBGL .. [[ <a:shiny_bgl:1241799042174947370>***",
                 "inline": true
                 },
                {
                   "name": "**Dropped Items:**",
-                  "value": "**Black Gems: ]] .. GF(15670) .. [[\nPink Gem Stone: ]] .. GF(15422) .. [[**",
+                  "value": "**Black Gems: ]] .. GF(15670) .. [[<:bgems:1360301356568678440>\nPink Gem Stone: ]] .. GF(15422) .. [[<:pgems:1360301530787352608>**",
                   "inline": true
                 },
                 {
