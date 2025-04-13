@@ -72,7 +72,7 @@ end
 GR = function()
   local Magplant = FM()
   if #Magplant == 0 then
-    ER("`4No Magplant Detected")
+    co("`4No Magplant Detected")
     return
   end
 
@@ -105,7 +105,7 @@ EC = function()
   local cT = os.time()
   if cT > ConsumeTime + (60 * 30) then
     ConsumeTime = cT
-    ER("`9Consume Time")
+    co("`9Consume Time")
     for _, Eat in pairs(Configuration.Misc.ConsumableID) do
       local availableAmount = CI(Eat)
 
@@ -193,7 +193,7 @@ end
 CB = function()
   if CI(1796) > 100 then
     Pkt(2, "action|dialog_return\ndialog_name|telephone\nnum|53785\nx|" .. (Configuration.Misc.TelephonePos.x - 1) .. "\ny|" .. (Configuration.Misc.TelephonePos.y - 1) .. "\nbuttonClicked|bglconvert")
-    ER("`cConverting `1DL `cto `eBGL")
+    co("`cConverting `1DL `cto `eBGL")
     Slp(200)
   end
 end
@@ -207,7 +207,7 @@ local initStGemz = GetPlayerInfo().gems
 
 function Webhook()
     local currentTime = os.time()
-    if currentTime - lastWebhookTime >= 60 then
+    if currentTime - lastWebhookTime >= 600 then
         local playerName = GetLocal().name:match("[^`,%d]+")
         local DiX = math.floor(PaX) + 1
         local DiY = math.floor(PaY) + 1
@@ -303,7 +303,7 @@ end
 
 
 for i = 1, 1 do
-  TX("`cPremium PNB `0by `#Tomoka")
+  TX("`cPremium PNB `0by `#@Tomoka")
   Slp(1000)
  if Configuration.Misc.GemToDL then
   TX("`cCurrent `1DL`0: " .. CI(1796)) 
@@ -319,13 +319,13 @@ RN = function()
   while true do
     Slp(100)   
     if (GetWorld() == nil or GetWorld().name~= CurrentWorld) then
-      ER("`cWarping Back to`0: `2" ..CurrentWorld)
+      co("`cWarping Back to`0: `2" ..CurrentWorld)
       WP(CurrentWorld)
       Slp(7000)
       Rejoin = true
     else
       if (Rejoin) then
-        ER("`cTaking Remote `0#" .. current)
+        co("`cTaking Remote `0#" .. current)
         Rejoin = false
         CH(0)
         Slp(300)
@@ -344,7 +344,7 @@ RN = function()
         end
         
         if (Limit > 50) then
-          ER("`0Magplant #" ..current.. " is `4Empty")
+          co("`0Magplant #" ..current.. " is `4Empty")
           current = current + 1
           if current > #FM() then
             current = 1
