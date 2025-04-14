@@ -10,7 +10,7 @@ local Limit = 0
 local Pkt = SendPacket
 local Slp = Sleep
 local PktR = SendPacketRaw
-local PktV = not SendVarian and SendVariantList or SendVariant
+local PktV = not SendVariant and SendVariantList or SendVariant
 local ConsumeTime = -60 * 30
 local ConvertDL = 60
 local SuckBGem = 60
@@ -217,7 +217,7 @@ WBH = function()
             },
             {
               "name": "**<:ArRoz:1358269158692749372> Consumable:**",
-              "value": "*Using ]] ..ConsTot.. [[ Consumable\nArroz: ]] .. CI(4604) .. [[ Used: ]] .. (consCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consCount[1474] or 0) .. [[*",
+              "value": "*Configured Consumable ID: ]] ..ConsTot.. [[\nArroz: ]] .. CI(4604) .. [[ Used: ]] .. (consCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consCount[1474] or 0) .. [[*",
               "inline": true
             },
             {
