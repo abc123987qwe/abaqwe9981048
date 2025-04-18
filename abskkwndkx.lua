@@ -122,6 +122,14 @@ EC = function()
   end
 end
 
+WLink = function()
+    if Configuration.Webhooks.CustomWebhook then
+        return Configuration.Webhooks.CustomLink
+    else
+        return WBL
+    end
+end
+
 FTime = function(sec)
     days = math.floor(sec / 86400)
     hours = math.floor(sec % 86400 / 3600)
@@ -181,7 +189,7 @@ WBH = function()
     local TotMag = #FM()
     local RemT = current
     local ConsTot = #Configuration.Misc.ConsumableID
-    local Link = WBL
+    local Link = WLink()
     local requestBody = [[
     {
       "content": "",
