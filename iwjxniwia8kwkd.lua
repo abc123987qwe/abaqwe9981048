@@ -1,3 +1,7 @@
+local PkT = SendPacket 
+local LtcS = LogToConsole
+local PktV = SendVariantList
+local Slp = Sleep
 
 T = function(log) return LtcS(log) end
 L = function(vl) return PktV({[0] = "OnTextOverlay", [1] = (vl ~= nil and vl or "")}) end
@@ -7,10 +11,6 @@ ER = function(inp)
  L(inp)
 end
 
-local PkT = SendPacket 
-local LtcS = LogToConsole
-local PktV = SendVariantList
-local Slp = Sleep
 local CanDrop = true
 local CanBuy = true
 
