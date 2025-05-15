@@ -70,12 +70,13 @@ DR = function(id)
     return false
 end
 end
+
 TR = function(id)
     local amount = CI(id)
     if amount > 200 then
         PkT(2, "action|dialog_return\ndialog_name|trash\nitem_trash|"..id.."|\nitem_count|"..amount)
         Slp(50)
-        ER("`cTrashed`0: "..GetItemInfo(id).name.." (`cAmount`0: "..amount..")")
+        T("`cTrashed`0: "..GetItemInfo(id).name.." (`cAmount`0: "..amount..")")
         return true
     end
     return false
