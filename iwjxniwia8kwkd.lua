@@ -14,6 +14,10 @@ end
 local CanDrop = true
 local CanBuy = true
 
+WP = function(x)
+  PkT(3, "action|join_request\nname|" ..x)
+end
+
 CI = function(id)
     for _, itm in pairs(GetInventory() or {}) do
         if itm.id == id then return itm.amount end
@@ -30,6 +34,9 @@ CG = function()
 end
 
 DR = function(id)
+  if (GetWorld() == nil or GetWorld().name ~= Worlds) then
+    return
+   else
     local amount = CI(id)
     if amount >= 200 then
         local itemIndex
@@ -62,13 +69,13 @@ DR = function(id)
     end
     return false
 end
-
+end
 TR = function(id)
     local amount = CI(id)
     if amount > 200 then
         PkT(2, "action|dialog_return\ndialog_name|trash\nitem_trash|"..id.."|\nitem_count|"..amount)
-        Slp(200)
-        T("`cTrashed`0: "..GetItemInfo(id).name.." (`cAmount`0: "..amount..")")
+        Slp(50)
+        ER("`cTrashed`0: "..GetItemInfo(id).name.." (`cAmount`0: "..amount..")")
         return true
     end
     return false
@@ -78,6 +85,11 @@ PkT(2, "action|input\ntext|`cAuto Buy Pack `0by `#@Tomoka")
 Slp(2000)
 
 while true do
+ if (GetWorld() == nil or GetWorld().name ~= Worlds) then
+   ER("`cWarping Back To `0" .. Worlds:upper())
+   WP(Worlds)
+   Slp(5000)
+ else
   if CanBuy then
     if not CG() then
       ER("`4ERROR`0: Stopped The Script Due To Insufficient Gems!")
@@ -117,4 +129,5 @@ while true do
   else
     Slp(50)
   end
+end
 end
