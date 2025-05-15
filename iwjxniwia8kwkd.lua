@@ -11,6 +11,7 @@ ER = function(inp)
  L(inp)
 end
 
+local Worlds = GetWorld().name
 local CanDrop = true
 local CanBuy = true
 
