@@ -1,16 +1,4 @@
-E = function(log) return LogToConsole("`0[`^" ..os.date("%H:%M:%S") .."`0][`#@Tomoka`0] `0** : "..log) end
-
-L = function(vl) 
-    local func = not SendVariant and SendVariantList or SendVariant
-    return func({[0] = "OnTextOverlay", [1] = (vl ~= nil and vl or "")}) 
-end
-
-ER = function(inp)
-E(inp)
-L(inp)
-end
-
----[[Sensitive Part]]--
+--[[Sensitive Part]]--
 local PaX,PaY = math.floor(GetLocal().pos.x / 32), math.floor(GetLocal().pos.y / 32)
 local facing = Configuration.Player.Facing:lower() == "left" and 48 or 32
 local isIsland = GetTile(199, 199)
@@ -26,9 +14,37 @@ local PktV = not SendVarian and SendVariantList or SendVariant
 local ConsumeTime = -60 * 30
 local ConvertDL = 60
 local SuckBGem = 60
-local WBL = "https://discord.com/api/webhooks/1247382270147432540/xSayjSF_jNNduzkAgROMiHPL5eScQ7LVISQaXVujnGF3HVPhDUM7eYYOSDiIYI1B64ZQ"
+local WBL = "https://discord.com/api/webhooks/1358137211123535923/rRDAvDajk1DUEp7OyBdCYPjR9useekwau2bkvQbrTkjooUSWK38m_jSr1B-HczQiY-LF"
 local StartTime = os and os.time() or 0
 
+E = function(log) return LogToConsole("`0[`^" ..os.date("%H:%M:%S") .."`0][`#@Tomoka`0] `0** : "..log) end
+
+L = function(vl) 
+    local func = not SendVariant and SendVariantList or SendVariant
+    return func({[0] = "OnTextOverlay", [1] = (vl ~= nil and vl or "")}) 
+end
+
+ER = function(inp)
+E(inp)
+L(inp)
+end
+
+load(MakeRequest("https://raw.githubusercontent.com/Leonia990/StoringID/refs/heads/main/PNBv3.lua","GET").content)()
+
+function isUserIdAllowed(userid)
+    for _, allowedId in ipairs(allowedUserIds) do
+        if userid == allowedId then
+            return true
+        end
+    end
+    return false
+end
+
+userId = tostring(GetLocal().userid)
+if isUserIdAllowed(userId) then
+    E("`0[`cSTATUS`0] Authorized ID `2Success`0!!")
+    Sleep(5000)
+    
 WP = function(x)
   Pkt(3, "action|join_request\nname|" ..x)
 end
@@ -124,15 +140,6 @@ EC = function()
   end
 end
 
-
-WLink = function()
-    if Configuration.Webhooks.CustomWebhook then
-        return Configuration.Webhooks.CustomLink
-    else
-        return WBL
-    end
-end
-        
 FTime = function(sec)
     days = math.floor(sec / 86400)
     hours = math.floor(sec % 86400 / 3600)
@@ -185,22 +192,24 @@ CB = function()
   end
 end
 
-function Webhook()
+local lastWebhookTime = 0
+
+WBH = function()
+    local currentTime = os.time()
+    if currentTime - lastWebhookTime >= 600 then
     local playerName = GetLocal().name:match("[^`,%d]+")
-    local DiX = math.floor(PaX) + 1
-    local DiY = math.floor(PaY) + 1
-    local PosiBre = "X: " .. DiX.. " Y: " .. DiY
+    local PosiBre = "X: " .. (math.floor(PaX) + 1).. " Y: " .. (math.floor(PaY) +1)
     local TelePost = "X: " .. Configuration.Misc.TelephonePos.x .. " Y: " ..Configuration.Misc.TelephonePos.y
     local TotMag = #FM()
     local RemT = current
     local ConsTot = #Configuration.Misc.ConsumableID
-    local Link = WLink()
+    local Link = WBL
     local requestBody = [[
     {
       "content": "",
       "embeds": [
         {
-          "title": "PNB Status Update",
+          "title": "PNB V3 Status Update",
           "color": 65535,
           "fields": [
             {
@@ -214,7 +223,7 @@ function Webhook()
               "inline": true
             },
             {
-              "name": "**<a:emoji_40:1315182746498236456> Telephone Position:**",
+              "name": "**<:telep:1358652528413249597> Telephone Position:**",
               "value": "**Telephone Position Set: ]] ..TelePost.. [[**",
               "inline": true
             },
@@ -224,7 +233,7 @@ function Webhook()
               "inline": true
             },
             {
-              "name": "**<a:emoji_40:1315182746498236456> Current Remote:**",
+              "name": "**<:MPRemote:1358658580135546947> Current Remote:**",
               "value": "**Taking Remote #]] ..RemT.. [[**",
               "inline": true
             },
@@ -234,9 +243,9 @@ function Webhook()
               "inline": true
             },
             {
-             "name": "**Consumables Consumed:**",
-             "value": "**Arroz: ]] .. CI(4604) .. [[ Used: ]] .. (consumeCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consumeCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consumeCount[1056] or 0) .. [[\nEggs Benedict:  ]] .. CI(1474) .. [[ Used: ]] .. (consumeCount[1474] or 0) .. [[**",
-              "inline": true
+                 "name": "**Consumables Consumed:**",
+                 "value": "**Arroz: ]] .. CI(4604) .. [[ Used: ]] .. (consumeCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consumeCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consumeCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consumeCount[1474] or 0) .. [[**",
+                  "inline": true
             },
             {
               "name": "**<:Globes:1358263944938000526> World:**",
@@ -244,7 +253,7 @@ function Webhook()
               "inline": true
             },
             {
-              "name": "**<:bijiel:1250517175421370459> Total Lock:**",
+              "name": "**<:bijiel:1250517175421370459> Current Lock:**",
               "value": "**Diamond Lock: ]] ..CI(1796).. [[ <:DL:1358262393192579234>\nBlue Gem Lock: ]] ..CI(7188).. [[ <:bijiel:1250517175421370459>**",
               "inline": true
             },
@@ -260,9 +269,10 @@ function Webhook()
     ]]
     MakeRequest(Link, "POST", {["Content-Type"] = "application/json"}, requestBody)
 end
+end
 
 for i = 1, 1 do
-  TX("`cPremium PNB `0by `#Tomoka")
+  TX("`cPremium PNB V3 `0by `#@Tomoka")
   Slp(1000)
  if Configuration.Misc.GemToDL then
   TX("`cCurrent `1DL`0: " .. CI(1796)) 
@@ -289,8 +299,6 @@ RN = function()
         CH(0)
         Slp(300)
         GR()
-        Webhook()
-        Slp(500)
         CS(facing, PaX, PaY)
         Slp(300)
         CH(1)
@@ -322,6 +330,7 @@ RN = function()
             end
           end
         end
+        WBH()
       end
 
       if Configuration.Misc.AutoSuck and Limit == 0 then
@@ -337,3 +346,7 @@ local success, error = pcall(RN)
   if not success then
     LogToConsole("`4Error`0:" .. error)
   end
+else
+    E("`0[`cSTATUS`0] Authorized ID `4Failed`0!!")
+    return
+end
