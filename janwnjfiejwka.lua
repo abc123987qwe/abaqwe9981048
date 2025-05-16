@@ -29,6 +29,21 @@ E(inp)
 L(inp)
 end
 
+load(MakeRequest("https://raw.githubusercontent.com/Leonia990/StoringID/refs/heads/main/PNBv3.lua","GET").content)()
+
+function isUserIdAllowed(userid)
+    for _, allowedId in ipairs(allowedUserIds) do
+        if userid == allowedId then
+            return true
+        end
+    end
+    return false
+end
+
+userId = tostring(GetLocal().userid)
+if isUserIdAllowed(userId) then
+    E("`0[`cSTATUS`0] Authorized ID `2Success`0!!")
+    Sleep(5000)
 
 WP = function(x)
   Pkt(3, "action|join_request\nname|" ..x)
@@ -331,3 +346,10 @@ local success, error = pcall(RN)
   if not success then
     LogToConsole("`4Error`0:" .. error)
   end
+        
+else
+    E("`0[`cSTATUS`0] Authorized ID `4Failed`0!!")
+    L("`0Authorized ID `4Failed`0!")
+    return
+end
+    
