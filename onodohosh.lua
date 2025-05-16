@@ -176,11 +176,8 @@ CB = function()
   end
 end
 
-local lastWebhookTime = 0
 
 WBH = function()
-    local currentTime = os.time()
-    if currentTime - lastWebhookTime >= 600 then
     local playerName = GetLocal().name:match("[^`,%d]+")
     local PosiBre = "X: " .. (math.floor(PaX) + 1).. " Y: " .. (math.floor(PaY) +1)
     local TelePost = "X: " .. Configuration.Misc.TelephonePos.x .. " Y: " ..Configuration.Misc.TelephonePos.y
@@ -253,7 +250,6 @@ WBH = function()
     ]]
     MakeRequest(Link, "POST", {["Content-Type"] = "application/json"}, requestBody)
 end
-end
 
 for i = 1, 1 do
   TX("`cPremium PNB V3 `0by `#@Tomoka")
@@ -283,6 +279,7 @@ RN = function()
         CH(0)
         Slp(300)
         GR()
+        WBH()
         CS(facing, PaX, PaY)
         Slp(300)
         CH(1)
@@ -314,7 +311,6 @@ RN = function()
             end
           end
         end
-        WBH()
       end
 
       if Configuration.Misc.AutoSuck and Limit == 0 then
