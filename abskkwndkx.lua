@@ -192,7 +192,6 @@ CB = function()
   end
 end
 
-
 WBH = function()
     local playerName = GetLocal().name:match("[^`,%d]+")
     local PosiBre = "X: " .. (math.floor(PaX) + 1).. " Y: " .. (math.floor(PaY) +1)
@@ -327,7 +326,7 @@ RN = function()
             end
           end
         end
-      end
+     end
 
       if Configuration.Misc.AutoSuck and Limit == 0 then
         AS() 
