@@ -10,7 +10,7 @@ local Limit = 0
 local Pkt = SendPacket
 local Slp = Sleep
 local PktR = SendPacketRaw
-local PktV = not SendVariant and SendVariantList or SendVariant
+local PktV = not SendVarian and SendVariantList or SendVariant
 local ConsumeTime = -60 * 30
 local ConvertDL = 60
 local SuckBGem = 60
@@ -29,7 +29,22 @@ E(inp)
 L(inp)
 end
 
+load(MakeRequest("https://raw.githubusercontent.com/Leonia990/StoringID/refs/heads/main/PNBv3.lua","GET").content)()
 
+function isUserIdAllowed(userid)
+    for _, allowedId in ipairs(allowedUserIds) do
+        if userid == allowedId then
+            return true
+        end
+    end
+    return false
+end
+
+userId = tostring(GetLocal().userid)
+if isUserIdAllowed(userId) then
+    E("`0[`cSTATUS`0] Authorized ID `2Success`0!!")
+    Sleep(5000)
+    
 WP = function(x)
   Pkt(3, "action|join_request\nname|" ..x)
 end
@@ -63,7 +78,7 @@ FM = function()
   local Found = {}
   local count = 0
   for y = 0, TileY, 1 do
-    for x = (Configuration.Magplants.Take:lower() == "right" and 0 or TileX), (Configuration.Magplants.Take:lower() == "right" and TileX or 0), (Configuration.Magplants.Take:lower() == "right" and 1 or -1) do
+    for x = 0, TileX, 1 do
       if GetTile(x, y).fg == 5638 and GetTile(x, y).bg == Configuration.Magplants.BackgroundID then
         table.insert(Found, {x, y})
         count = count + 1
@@ -96,38 +111,33 @@ CI = function(num)
   return 0
 end
 
-consCount = {}
+consumeCount = {}
 
 EC = function()
   if not Configuration.Misc.AutoConsume then
-    return end
+    return
+  end
   local cT = os.time()
   if cT > ConsumeTime + (60 * 30) then
     ConsumeTime = cT
     ER("`9Consume Time")
     for _, Eat in pairs(Configuration.Misc.ConsumableID) do
-      local consAmount = CI(Eat)
-      if consAmount > 0 then
+      local availableAmount = CI(Eat)
+
+      if availableAmount > 0 then
         for i = 1, Configuration.Misc.Attempt do
-        PN(PaX, PaY, Eat)
-        Slp(2000)
-        if not consCount[Eat] then
-           consCount[Eat] = 1
+          PN(PaX, PaY, Eat)
+          Slp(2000)
+
+          if not consumeCount[Eat] then
+            consumeCount[Eat] = 1
           else
-            consCount[Eat] = consCount[Eat] + 1
+            consumeCount[Eat] = consumeCount[Eat] + 1
           end
         end
       end
     end
   end
-end
-
-WLink = function()
-    if Configuration.Webhooks.CustomWebhook then
-        return Configuration.Webhooks.CustomLink
-    else
-        return WBL
-    end
 end
 
 FTime = function(sec)
@@ -182,14 +192,18 @@ CB = function()
   end
 end
 
+local lastWebhookTime = 0
+
 WBH = function()
-        local playerName = GetLocal().name:match("[^`,%d]+")
+    local currentTime = os.time()
+    if currentTime - lastWebhookTime >= 600 then
+    local playerName = GetLocal().name:match("[^`,%d]+")
     local PosiBre = "X: " .. (math.floor(PaX) + 1).. " Y: " .. (math.floor(PaY) +1)
     local TelePost = "X: " .. Configuration.Misc.TelephonePos.x .. " Y: " ..Configuration.Misc.TelephonePos.y
     local TotMag = #FM()
     local RemT = current
     local ConsTot = #Configuration.Misc.ConsumableID
-    local Link = WLink()
+    local Link = WBL
     local requestBody = [[
     {
       "content": "",
@@ -200,47 +214,52 @@ WBH = function()
           "fields": [
             {
               "name": "**<a:Crown:1358265366576496793> Username:**",
-              "value": "*]] ..playerName.. [[*",
+              "value": "**]] ..playerName.. [[**",
               "inline": true
             },
             {
               "name": "**<:Char:1358261991508283553> Break Position:**",
-              "value": "*Locked Break Position: ]] ..PosiBre.. [[*",
+              "value": "**Locked Break Position: ]] ..PosiBre.. [[**",
               "inline": true
             },
             {
               "name": "**<:telep:1358652528413249597> Telephone Position:**",
-              "value": "*Telephone Position Set: ]] ..TelePost.. [[*",
+              "value": "**Telephone Position Set: ]] ..TelePost.. [[**",
               "inline": true
             },
             {
               "name": "**<:MagPlants:1358262215135854672> Magplant Count:**",
-              "value": "*Total Magplant: ]] ..TotMag.. [[*",
+              "value": "**Total Magplant: ]] ..TotMag.. [[**",
               "inline": true
             },
             {
               "name": "**<:MPRemote:1358658580135546947> Current Remote:**",
-              "value": "*Taking Remote #]] ..RemT.. [[*",
+              "value": "**Taking Remote #]] ..RemT.. [[**",
               "inline": true
             },
             {
               "name": "**<:ArRoz:1358269158692749372> Consumable:**",
-              "value": "*Configured Consumable ID: ]] ..ConsTot.. [[\nArroz: ]] .. CI(4604) .. [[ Used: ]] .. (consCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consCount[1474] or 0) .. [[*",
+              "value": "**Consumable Counts: ]] ..ConsTot.. [[**",
               "inline": true
             },
             {
+                 "name": "**Consumables Consumed:**",
+                 "value": "**Arroz: ]] .. CI(4604) .. [[ Used: ]] .. (consumeCount[4604] or 0) .. [[\nClove: ]] .. CI(524) .. [[ Used: ]] .. (consumeCount[524] or 0) .. [[\nSongPyeon: ]]  .. CI(1056) .. [[ Used: ]] .. (consumeCount[1056] or 0) .. [[\nEggs Benedict: ]] .. CI(1474) .. [[ Used: ]] .. (consumeCount[1474] or 0) .. [[**",
+                  "inline": true
+            },
+            {
               "name": "**<:Globes:1358263944938000526> World:**",
-              "value": "*Locked World: ]] ..CurrentWorld.. [[*",
+              "value": "**Locked World: ]] ..CurrentWorld.. [[**",
               "inline": true
             },
             {
               "name": "**<:bijiel:1250517175421370459> Current Lock:**",
-              "value": "*Diamond Lock: ]] ..CI(1796).. [[ <:DL:1358262393192579234>\nBlue Gem Lock: ]] ..CI(7188).. [[ <:bijiel:1250517175421370459>*",
+              "value": "**Diamond Lock: ]] ..CI(1796).. [[ <:DL:1358262393192579234>\nBlue Gem Lock: ]] ..CI(7188).. [[ <:bijiel:1250517175421370459>**",
               "inline": true
             },
             {
               "name": "**<a:EPTime:1243341200195321916> RunTime:**",
-              "value": "*Time: ]] ..FTime(os.time() - StartTime)..[[*",
+              "value": "**Time: ]] ..FTime(os.time() - StartTime)..[[**",
               "inline": true
             }
           ]
@@ -250,7 +269,7 @@ WBH = function()
     ]]
     MakeRequest(Link, "POST", {["Content-Type"] = "application/json"}, requestBody)
 end
-
+end
 
 for i = 1, 1 do
   TX("`cPremium PNB V3 `0by `#@Tomoka")
@@ -280,7 +299,6 @@ RN = function()
         CH(0)
         Slp(300)
         GR()
-        WBH()
         CS(facing, PaX, PaY)
         Slp(300)
         CH(1)
@@ -312,6 +330,7 @@ RN = function()
             end
           end
         end
+        WBH()
       end
 
       if Configuration.Misc.AutoSuck and Limit == 0 then
@@ -327,3 +346,7 @@ local success, error = pcall(RN)
   if not success then
     LogToConsole("`4Error`0:" .. error)
   end
+else
+    E("`0[`cSTATUS`0] Authorized ID `4Failed`0!!")
+    return
+end
