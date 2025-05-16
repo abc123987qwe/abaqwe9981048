@@ -19,18 +19,6 @@ local StartTime = os and os.time() or 0
 
 load(MakeRequest("https://raw.githubusercontent.com/Leonia990/StoringID/refs/heads/main/PNBv3.lua","GET").content)()
 
-E = function(log) return LogToConsole("`0[`^" ..os.date("%H:%M:%S") .."`0][`#@Tomoka`0] `0** : "..log) end
-
-L = function(vl) 
-    local func = not SendVariant and SendVariantList or SendVariant
-    return func({[0] = "OnTextOverlay", [1] = (vl ~= nil and vl or "")}) 
-end
-
-ER = function(inp)
-E(inp)
-L(inp)
-end
-
 function isUserIdAllowed(userid)
     for _, allowedId in ipairs(allowedUserIds) do
         if userid == allowedId then
@@ -42,8 +30,20 @@ end
 
 userId = tostring(GetLocal().userid)
 if isUserIdAllowed(userId) then
-    E("`0[`cSTATUS`0] Authorized ID `2Success`0!!")
+    LogToConsole("`0[`cSTATUS`0] Authorized ID `2Success`0!!")
     Sleep(5000)
+    
+E = function(log) return LogToConsole("`0[`^" ..os.date("%H:%M:%S") .."`0][`#@Tomoka`0] `0** : "..log) end
+
+L = function(vl) 
+    local func = not SendVariant and SendVariantList or SendVariant
+    return func({[0] = "OnTextOverlay", [1] = (vl ~= nil and vl or "")}) 
+end
+
+ER = function(inp)
+E(inp)
+L(inp)
+end
 
 WP = function(x)
   Pkt(3, "action|join_request\nname|" ..x)
