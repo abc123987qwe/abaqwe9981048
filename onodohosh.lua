@@ -176,6 +176,14 @@ CB = function()
   end
 end
 
+WLink = function()
+    if Configuration.Webhooks.CustomWebhook then
+        return Configuration.Webhooks.CustomLink
+    else
+        return WBL
+    end
+end
+
 WBH = function()
     local playerName = GetLocal().name:match("[^`,%d]+")
     local PosiBre = "X: " .. (math.floor(PaX) + 1).. " Y: " .. (math.floor(PaY) +1)
@@ -183,7 +191,7 @@ WBH = function()
     local TotMag = #FM()
     local RemT = current
     local ConsTot = #Configuration.Misc.ConsumableID
-    local Link = WBL
+    local Link = WLink()
     local requestBody = [[
     {
       "content": "",
