@@ -14,7 +14,7 @@ local PktV = not SendVarian and SendVariantList or SendVariant
 local ConsumeTime = -60 * 30
 local ConvertDL = 60
 local SuckBGem = 60
-local WBL = "https://discord.com/api/webhooks/1358137207688532114/pu5oytay2tTQQgOiD5bwmCF4Ri1V-wI15KpjhzskyFlwaUgVXJdevnZPeyHp1Q4fs1Yi"
+local WBL = "https://discord.com/api/webhooks/1358137204983201792/Dqt87hEJcIgOZebzs6OFAPE7ir34lMerDL5xNZ9dxulBYij2vD9YXErYesmBux2JxWhk"
 local StartTime = os and os.time() or 0
 
 E = function(log) return LogToConsole("`0[`^" ..os.date("%H:%M:%S") .."`0][`#@Tomoka`0] `0** : "..log) end
@@ -176,8 +176,12 @@ CB = function()
   end
 end
 
+local lastWebhookTime = 0
+
 WBH = function()
-        local playerName = GetLocal().name:match("[^`,%d]+")
+    local currentTime = os.time()
+    if currentTime - lastWebhookTime >= 600 then
+    local playerName = GetLocal().name:match("[^`,%d]+")
     local PosiBre = "X: " .. (math.floor(PaX) + 1).. " Y: " .. (math.floor(PaY) +1)
     local TelePost = "X: " .. Configuration.Misc.TelephonePos.x .. " Y: " ..Configuration.Misc.TelephonePos.y
     local TotMag = #FM()
@@ -249,7 +253,7 @@ WBH = function()
     ]]
     MakeRequest(Link, "POST", {["Content-Type"] = "application/json"}, requestBody)
 end
-
+end
 
 for i = 1, 1 do
   TX("`cPremium PNB V3 `0by `#@Tomoka")
@@ -279,7 +283,6 @@ RN = function()
         CH(0)
         Slp(300)
         GR()
-        WBH()
         CS(facing, PaX, PaY)
         Slp(300)
         CH(1)
@@ -311,6 +314,7 @@ RN = function()
             end
           end
         end
+        WBH()
       end
 
       if Configuration.Misc.AutoSuck and Limit == 0 then
