@@ -14,7 +14,7 @@ local PktV = not SendVarian and SendVariantList or SendVariant
 local ConsumeTime = -60 * 30
 local ConvertDL = 60
 local SuckBGem = 60
-local WBL = "https://discord.com/api/webhooks/1358137211123535923/rRDAvDajk1DUEp7OyBdCYPjR9useekwau2bkvQbrTkjooUSWK38m_jSr1B-HczQiY-LF"
+local WBL = ""
 local StartTime = os and os.time() or 0
 
 E = function(log) return LogToConsole("`0[`^" ..os.date("%H:%M:%S") .."`0][`#@Tomoka`0] `0** : "..log) end
