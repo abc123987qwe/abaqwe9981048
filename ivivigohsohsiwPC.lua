@@ -243,10 +243,10 @@ CB = function()
 end
 
 local lastWebhookTime = 0
-local initGemz = GetItemInfo().gems
+local initGemz = GetPlayerInfo().gems
 local initDL = CI(1796)
 local initBGL = CI(7188)
-local initStGemz = GetItemInfo().gems
+local initStGemz = GetPlayerInfo().gems
 
 
 function Webhook()
@@ -262,7 +262,7 @@ function Webhook()
         local getDL = (curDL + convertDL) - initDL
         local curBGL = CI(7188)
         local getBGL = curBGL - initBGL
-        local currentGemz = GetPlayerItems().gems
+        local currentGemz = GetPlayerInfo().gems
         local getGemz = (currentGemz + usedGems) - initStGemz
         local ConsTot = #Configuration.Misc.ConsumableID
         local Link = WLink()
@@ -347,7 +347,7 @@ end
 
 
 for i = 1, 1 do
-  TX("`cPremium PNB V3 `0by `#Tomoka")
+  TX("`cPremium PNB `0by `#Tomoka")
   Slp(1000)
  if Configuration.Misc.GemToDL then
   TX("`cCurrent `1DL`0: " .. CI(1796)) 
