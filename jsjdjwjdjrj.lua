@@ -59,7 +59,7 @@ FM = function()
   local Found = {}
   local count = 0
   for y = 0, TileY, 1 do
-    for x = 0, TileX, 1 do
+    for x = (Configuration.Magplants.Take:lower() == "right" and 0 or TileX), (Configuration.Magplants.Take:lower() == "right" and TileX or 0), (Configuration.Magplants.Take:lower() == "right" and 1 or -1) do
       if GetTile(x, y).fg == 5638 and GetTile(x, y).bg == Configuration.Magplants.BackgroundID then
         table.insert(Found, {x, y})
         count = count + 1
