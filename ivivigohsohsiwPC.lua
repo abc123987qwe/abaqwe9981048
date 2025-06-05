@@ -243,10 +243,10 @@ CB = function()
 end
 
 local lastWebhookTime = 0
-local initGemz = GetPlayerItems().gems
+local initGemz = GetItemInfo().gems
 local initDL = CI(1796)
 local initBGL = CI(7188)
-local initStGemz = GetPlayerItems().gems
+local initStGemz = GetItemInfo().gems
 
 
 function Webhook()
@@ -347,7 +347,7 @@ end
 
 
 for i = 1, 1 do
-  TX("`cPremium PNB `0by `#Tomoka")
+  TX("`cPremium PNB V3 `0by `#Tomoka")
   Slp(1000)
  if Configuration.Misc.GemToDL then
   TX("`cCurrent `1DL`0: " .. CI(1796)) 
