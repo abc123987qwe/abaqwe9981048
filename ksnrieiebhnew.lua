@@ -27,7 +27,7 @@ local Limit = 0
 local Pkt = SendPacket
 local Slp = Sleep
 local PktR = SendPacketRaw
-local PktV = SendVariantList
+local PktV = not SendVarian and SendVariantList or SendVariant
 local ConsumeTime = -60 * 30
 local ConvertDL = 60
 local SuckBGem = 60
@@ -388,6 +388,7 @@ RN = function()
     else
       if (Rejoin) then
         ER("`cTaking Remote `0#" .. current)
+        Slp(2000)
         Rejoin = false
         CH(0)
         Slp(300)
@@ -407,6 +408,7 @@ RN = function()
         
         if (Limit > 50) then
           ER("`0Magplant #" ..current.. " is `4Empty")
+          Slp(2000)
           current = current + 1
           if current > #FM() then
             current = 1
