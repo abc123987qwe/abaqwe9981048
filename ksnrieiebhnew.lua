@@ -5,7 +5,7 @@ L = function(vl)
 end
 
 AddHook("onvariant", "dsdb", function(var)
-    if var[0] == "OnSDBroadcast" or (var[0] == "OnDialogRequest" and var[1]:find("M) then 
+    if var[0] == "OnSDBroadcast" or (var[0] == "OnDialogRequest") then 
         return true 
     end
 end)
